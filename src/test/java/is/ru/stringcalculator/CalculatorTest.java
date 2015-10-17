@@ -30,10 +30,17 @@ public class CalculatorTest {
     }
 
     @Test
-    public void testMoreDelimiters(){
+    public void testNewlineAsDelimiters(){
     	assertEquals(6, Calculator.add("1,2\n3"));
     	assertEquals(6, Calculator.add("1\n2,3"));
     	assertEquals(6, Calculator.add("1\n2\n3"));
+    }
+
+    @Test
+    public void testDelimiterFromStdInput(){
+    	assertEquals(3, Calculator.add("//;\n1;2"));
+    	assertEquals(6, Calculator.add("//\n\n1\n2\n3"));
+    	assertEquals(6, Calculator.add("//.\n1.2\n3"));
     }
 
 }
