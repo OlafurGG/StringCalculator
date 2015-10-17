@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class Calculator {
 	static String delimiter = "";
+	static int len = 1;
+	static boolean isAnyLength = false;
 	public static int add(String text){
 		if(text.equals("")){
 			return 0;
@@ -13,6 +15,18 @@ public class Calculator {
 			delimiter = String.valueOf(text.charAt(2));
 			text = text.substring(4, text.length());
 		}
+		else if(text.startsWith("//") && text.charAt(2) == '[') {
+			delimiter = String.valueOf(text.charAt(3));
+			isAnyLength = true;
+			int i = 4;
+			while(text.charAt(i) == text.charAt(3)) {
+				i++;
+				len++;
+			}
+
+			text = text.substring(5 + len, text.length());
+		}
+
 		String[] nums = splitNumbers(text);
 		isNegative(nums);
 		nums = ignoreLargeNumbers(nums);
@@ -32,7 +46,16 @@ public class Calculator {
 	}
 
 	private static String[] splitNumbers(String numbers){
-	    return numbers.split("[" + delimiter + ",\n]");
+
+		//if (isAnyLength == false) {
+
+			return numbers.split("[,\n"+delimiter+"]+{"+len+"}");
+		//}
+		//else {
+			//return numbers.split("["+delimiter+"]+");
+		//}
+	    
+
 	}
       
     private static int sum(String[] numbers){

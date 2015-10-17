@@ -56,8 +56,13 @@ public class CalculatorTest {
     @Test
     public void ignoreLargeNumbers() {
     	assertEquals(6, Calculator.add("1,2,3,1001,2000"));
+    	assertEquals(1999, Calculator.add("999,1000,1001"));
     }
 
-
+    @Test
+    public void testDelimitersOfAnyLenght() {
+    	assertEquals(6, Calculator.add("//[***]\n1**2***3"));
+    	//assertEquals(6, Calculator.add("//[***]\n1,2**3"));
+    }
 
 }
