@@ -1,5 +1,7 @@
 package is.ru.stringcalculator;
 
+import java.util.ArrayList;
+
 public class Calculator {
 	static String delimiter = "";
 	public static int add(String text){
@@ -13,11 +15,13 @@ public class Calculator {
 		}
 		String[] nums = splitNumbers(text);
 		isNegative(nums);
+		nums = ignoreLargeNumbers(nums);
 		
 		
 		if(text.contains("\n") || text.contains(",") || 
 			text.contains(delimiter)){
-			return sum(splitNumbers(text));
+			//return sum(splitNumbers(text));
+			return sum(nums);
 		}
 		else
 			return 1;
@@ -39,7 +43,7 @@ public class Calculator {
 		return total;
     }
     
-    public static String[] isNegative(String[] numbers) throws IllegalArgumentException {
+    public static void isNegative(String[] numbers) throws IllegalArgumentException {
     	boolean[] negs = new boolean[numbers.length];   	
     	int numberOfNegatives = 0;
     	
@@ -79,9 +83,25 @@ public class Calculator {
     		}
     		throw new IllegalArgumentException("Negatives not allowed: " + str);
     	}
-    	//throw new IllegalArgumentException();
-    	//System.out.println();
-    	return numbers;
+    }
+
+    public static String[] ignoreLargeNumbers(String[] numbers) {
+    	ArrayList<String> newList = new ArrayList<String>();
+
+    	for (String s : numbers) {
+    		if (toInt(s) <= 1000) {
+    			newList.add(s);
+    		}
+    	}
+
+    	String[] result = new String[newList.size()];
+    	int i = 0;
+
+    	for (String s : newList) {
+    		result[i++] = s;
+    	}
+
+    	return result;
     }
 
     public static void main(String args[]) {

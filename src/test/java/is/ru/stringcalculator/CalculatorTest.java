@@ -50,8 +50,14 @@ public class CalculatorTest {
     	}
     	catch(IllegalArgumentException e) {
     		assertEquals(e.getMessage(), "Negatives not allowed: [-3, -4]");
-    	}
-    	
+    	}    	
     }
+
+    @Test
+    public void ignoreLargeNumbers() {
+    	assertEquals(6, Calculator.add("1,2,3,1001,2000"));
+    }
+
+
 
 }
